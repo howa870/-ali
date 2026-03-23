@@ -850,7 +850,23 @@ useEffect(() => {
       }
       className="w-full p-2 bg-black text-white mb-4 rounded"
     />
+<label className="block mb-2">الوصف:</label>
+<input
+  value={settings.subtitle}
+  onChange={(e) =>
+    setSettings({ ...settings, subtitle: e.target.value })
+  }
+  className="w-full p-2 bg-black text-white mb-4 rounded"
+/>
 
+<label className="block mb-2">نص الزر:</label>
+<input
+  value={settings.button}
+  onChange={(e) =>
+    setSettings({ ...settings, button: e.target.value })
+  }
+  className="w-full p-2 bg-black text-white mb-4 rounded"
+/>
     <button
       onClick={() => setShowPanel(false)}
       className="bg-red-500 px-4 py-2 rounded"

@@ -839,9 +839,50 @@ const saveSettings = (newSettings: any) => {
               <p className="text-gray-400 mt-4 text-sm">
                 استخدم أصابعك للتكبير والتصغير • اسحب للتحريك
               
-               
-{/* 👇 هنا تضيف */}
+              {selectedImage && (
+  <div
+    className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4"
+    onClick={closeModal}
+  >
+    {/* زر الإغلاق */}
+    <button
+      onClick={closeModal}
+      className="absolute top-4 right-4 z-50 bg-[#d4af37] hover:bg-[#c9a02e] text-black p-3 rounded-full"
+    >
+      ✕
+    </button>
 
+    {/* الصورة */}
+    <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
+      <div className="text-center">
+        <div
+          className="relative max-w-4xl mx-auto touch-none"
+          onClick={(e) => e.stopPropagation()}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          onWheel={handleWheel}
+        >
+          <img
+            src={selectedImage}
+            alt="عمل مميز"
+            className="max-w-full max-h-[80vh] object-contain mx-auto rounded-lg transition-transform duration-200"
+            style={{
+              transform: `scale(${scale}) translate(${position.x}px, ${position.y}px)`,
+              cursor: scale > 1 ? 'move' : 'zoom-in'
+            }}
+          />
+        </div>
+
+        <p className="text-gray-400 mt-4 text-sm">
+          استخدم أصابعك للتكبير والتصغير • اسحب للتحريك
+        </p>
+      </div>
+    </div>
+  </div>
+)}
+
+{/* 👇 زر الإعدادات */}
 <button
   onClick={() => setShowPanel(true)}
   className="fixed top-6 left-6 z-50 bg-[#d4af37] text-black p-3 rounded-full shadow-xl"
@@ -849,6 +890,7 @@ const saveSettings = (newSettings: any) => {
   ⚙️
 </button>
 
+{/* 👇 لوحة التحكم */}
 {showPanel && (
   <div className="fixed inset-0 bg-black/90 z-[200] flex items-center justify-center p-4">
     <div className="bg-[#0a0a0a] p-6 rounded-xl w-full max-w-md space-y-4">
@@ -859,7 +901,12 @@ const saveSettings = (newSettings: any) => {
         className="w-full p-3 bg-[#1a1a1a] text-white rounded"
         placeholder="العنوان"
         value={settings.title}
-        onChange={(e) => saveSettings({ ...settings, title: e.target.value })}
+        onChange={(e) =>
+          saveSettings({
+            ...settings,
+            title: e.target.value
+          })
+        }
       />
 
       <button
@@ -868,9 +915,7 @@ const saveSettings = (newSettings: any) => {
       >
         إغلاق
       </button>
-      
-      </div>
-</div>
+
     </div>
   </div>
-)}
+)} 

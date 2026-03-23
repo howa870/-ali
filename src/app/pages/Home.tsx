@@ -13,6 +13,26 @@ interface Testimonial {
 }
 
 export default function Home() {
+  const defaultSettings = {
+  whatsapp: "9647881457896",
+  phone: "+9647881457896",
+  title: "قنفات ودواوين فخمة",
+  subtitle: "تفصيل حسب الطلب وبأفضل جودة",
+  button: "اطلب الآن"
+};
+
+const [settings, setSettings] = useState(defaultSettings);
+const [showPanel, setShowPanel] = useState(false);
+
+useEffect(() => {
+  const saved = localStorage.getItem("siteSettings");
+  if (saved) setSettings(JSON.parse(saved));
+}, []);
+
+const saveSettings = (newSettings: any) => {
+  setSettings(newSettings);
+  localStorage.setItem("siteSettings", JSON.stringify(newSettings));
+};
   const whatsappNumber = "9647881457896";
   const whatsappLink = `https://wa.me/${whatsappNumber}`;
   const phoneNumber = "+9647881457896";

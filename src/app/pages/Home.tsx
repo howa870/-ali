@@ -16,9 +16,9 @@ export default function Home() {
   const defaultSettings = {
   whatsapp: "9647881457896",
   phone: "+9647881457896",
-  title: "قنفات ودواوين فخمة",
-  subtitle: "تفصيل حسب الطلب وبأفضل جودة",
-  button: "اطلب الآن"
+  title: "{settings.title}",
+  subtitle: "{settings.subtitle}",
+  button: "{settings.button}"
 };
 
 const [settings, setSettings] = useState(defaultSettings);
@@ -33,7 +33,7 @@ const saveSettings = (newSettings: any) => {
   setSettings(newSettings);
   localStorage.setItem("siteSettings", JSON.stringify(newSettings));
 };
-  const whatsappNumber = "9647881457896";
+  const whatsappNumber = settings.whatsapp;
   const whatsappLink = `https://wa.me/${whatsappNumber}`;
   const phoneNumber = "+9647881457896";
   const phoneLink = `tel:${phoneNumber}`;
@@ -846,3 +846,46 @@ const saveSettings = (newSettings: any) => {
     </div>
   );
     }
+<button
+  onClick={() => setShowPanel(true)}
+  className="fixed top-6 left-6 z-50 bg-[#d4af37] text-black p-3 rounded-full shadow-xl"
+>
+  ⚙️
+</button>
+{showPanel && (
+  <div className="fixed inset-0 bg-black/90 z-[200] flex items-center justify-center p-4">
+    <div className="bg-[#0a0a0a] p-6 rounded-xl w-full max-w-md space-y-4">
+
+      <h2 className="text-xl font-bold text-[#d4af37]">لوحة التحكم</h2>
+
+      <input
+        className="w-full p-3 bg-[#1a1a1a] text-white rounded"
+        placeholder="العنوان"
+        value={settings.title}
+        onChange={(e) => saveSettings({ ...settings, title: e.target.value })}
+      />
+
+      <input
+        className="w-full p-3 bg-[#1a1a1a] text-white rounded"
+        placeholder="الوصف"
+        value={settings.subtitle}
+        onChange={(e) => saveSettings({ ...settings, subtitle: e.target.value })}
+      />
+
+      <input
+        className="w-full p-3 bg-[#1a1a1a] text-white rounded"
+        placeholder="رقم الواتساب"
+        value={settings.whatsapp}
+        onChange={(e) => saveSettings({ ...settings, whatsapp: e.target.value })}
+      />
+
+      <button
+        onClick={() => setShowPanel(false)}
+        className="w-full bg-[#d4af37] text-black py-3 rounded font-bold"
+      >
+        إغلاق
+      </button>
+
+    </div>
+  </div>
+)}

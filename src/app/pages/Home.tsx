@@ -178,6 +178,12 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white" style={{ fontFamily: "'Cairo', sans-serif" }} dir="rtl">
+      <button
+  onClick={() => alert("لوحة التحكم بعدين 😉")}
+  className="fixed top-6 left-6 z-50 bg-[#d4af37] text-black p-3 rounded-full shadow-xl"
+>
+  ⚙️
+</button>
       {/* Loading Spinner */}
       {isLoading && <LoadingSpinner />}
 

@@ -852,7 +852,19 @@ const saveSettings = (newSettings: any) => {
       ✕
     </button>
 
-    {/* الصورة */}
+{/* Modal عرض الصورة */}
+{selectedImage && (
+  <div
+    className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4"
+    onClick={closeModal}
+  >
+    <button
+      onClick={closeModal}
+      className="absolute top-4 right-4 z-50 bg-[#d4af37] text-black p-3 rounded-full"
+    >
+      ✕
+    </button>
+
     <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
       <div className="text-center">
         <div
@@ -869,7 +881,7 @@ const saveSettings = (newSettings: any) => {
             className="max-w-full max-h-[80vh] object-contain mx-auto rounded-lg transition-transform duration-200"
             style={{
               transform: `scale(${scale}) translate(${position.x}px, ${position.y}px)`,
-              cursor: scale > 1 ? 'move' : 'zoom-in'
+              cursor: scale > 1 ? "move" : "zoom-in",
             }}
           />
         </div>
@@ -895,7 +907,9 @@ const saveSettings = (newSettings: any) => {
   <div className="fixed inset-0 bg-black/90 z-[200] flex items-center justify-center p-4">
     <div className="bg-[#0a0a0a] p-6 rounded-xl w-full max-w-md space-y-4">
 
-      <h2 className="text-xl font-bold text-[#d4af37]">لوحة التحكم</h2>
+      <h2 className="text-xl font-bold text-[#d4af37]">
+        لوحة التحكم
+      </h2>
 
       <input
         className="w-full p-3 bg-[#1a1a1a] text-white rounded"
@@ -904,7 +918,7 @@ const saveSettings = (newSettings: any) => {
         onChange={(e) =>
           saveSettings({
             ...settings,
-            title: e.target.value
+            title: e.target.value,
           })
         }
       />
@@ -918,4 +932,4 @@ const saveSettings = (newSettings: any) => {
 
     </div>
   </div>
-)} 
+)}

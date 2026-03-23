@@ -13,6 +13,13 @@ interface Testimonial {
 }
 
 export default function Home() {
+  const [showPanel, setShowPanel] = useState(false);
+
+const [settings, setSettings] = useState({
+  title: "قنفات ودواوين فخمة",
+  subtitle: "تفصيل وبيع بأعلى جودة",
+  button: "اطلب الآن"
+});
   const whatsappNumber = "9647881457896";
   const whatsappLink = `https://wa.me/${whatsappNumber}`;
   const phoneNumber = "+9647881457896";
@@ -179,7 +186,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white" style={{ fontFamily: "'Cairo', sans-serif" }} dir="rtl">
       <button
-  onClick={() => alert("لوحة التحكم بعدين 😉")}
+  onClick={() => setShowPanel(true)}
   className="fixed top-6 left-6 z-50 bg-[#d4af37] text-black p-3 rounded-full shadow-xl"
 >
   ⚙️
@@ -829,6 +836,27 @@ export default function Home() {
           </div>
         </div>
       )}
+      {showPanel && (
+  <div className="fixed top-0 right-0 w-80 h-full bg-[#1a1a1a] z-50 p-5 shadow-2xl">
+    <h2 className="text-xl mb-4">لوحة التحكم</h2>
+
+    <label className="block mb-2">العنوان:</label>
+    <input
+      value={settings.title}
+      onChange={(e) =>
+        setSettings({ ...settings, title: e.target.value })
+      }
+      className="w-full p-2 bg-black text-white mb-4 rounded"
+    />
+
+    <button
+      onClick={() => setShowPanel(false)}
+      className="bg-red-500 px-4 py-2 rounded"
+    >
+      اغلاق
+    </button>
+  </div>
+)}
     </div>
   );
           }

@@ -838,20 +838,17 @@ const saveSettings = (newSettings: any) => {
               </div>
               <p className="text-gray-400 mt-4 text-sm">
                 استخدم أصابعك للتكبير والتصغير • اسحب للتحريك
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-    }
+              
+               
+{/* 👇 هنا تضيف */}
+
 <button
   onClick={() => setShowPanel(true)}
   className="fixed top-6 left-6 z-50 bg-[#d4af37] text-black p-3 rounded-full shadow-xl"
 >
   ⚙️
 </button>
+
 {showPanel && (
   <div className="fixed inset-0 bg-black/90 z-[200] flex items-center justify-center p-4">
     <div className="bg-[#0a0a0a] p-6 rounded-xl w-full max-w-md space-y-4">
@@ -865,27 +862,15 @@ const saveSettings = (newSettings: any) => {
         onChange={(e) => saveSettings({ ...settings, title: e.target.value })}
       />
 
-      <input
-        className="w-full p-3 bg-[#1a1a1a] text-white rounded"
-        placeholder="الوصف"
-        value={settings.subtitle}
-        onChange={(e) => saveSettings({ ...settings, subtitle: e.target.value })}
-      />
-
-      <input
-        className="w-full p-3 bg-[#1a1a1a] text-white rounded"
-        placeholder="رقم الواتساب"
-        value={settings.whatsapp}
-        onChange={(e) => saveSettings({ ...settings, whatsapp: e.target.value })}
-      />
-
       <button
         onClick={() => setShowPanel(false)}
         className="w-full bg-[#d4af37] text-black py-3 rounded font-bold"
       >
         إغلاق
       </button>
-
+      
+      </div>
+</div>
     </div>
   </div>
 )}

@@ -881,8 +881,8 @@ const saveSettings = (newSettings: any) => {
             className="max-w-full max-h-[80vh] object-contain mx-auto rounded-lg transition-transform duration-200"
             style={{
               transform: `scale(${scale}) translate(${position.x}px, ${position.y}px)`,
-              cursor: scale > 1 ? "move" : "zoom-in"
-            }}
+              cursor: scale > 1 ? "move" : "zoom-in"‚
+            )}
           />
         </div>
 

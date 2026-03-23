@@ -13,27 +13,7 @@ interface Testimonial {
 }
 
 export default function Home() {
-  const defaultSettings = {
-  whatsapp: "9647881457896",
-  phone: "+9647881457896",
-  title: "{settings.title}",
-  subtitle: "{settings.subtitle}",
-  button: "{settings.button}"
-};
-
-const [settings, setSettings] = useState(defaultSettings);
-const [showPanel, setShowPanel] = useState(false);
-
-useEffect(() => {
-  const saved = localStorage.getItem("siteSettings");
-  if (saved) setSettings(JSON.parse(saved));
-}, []);
-
-const saveSettings = (newSettings: any) => {
-  setSettings(newSettings);
-  localStorage.setItem("siteSettings", JSON.stringify(newSettings));
-};
-  const whatsappNumber = settings.whatsapp;
+  const whatsappNumber = "9647881457896";
   const whatsappLink = `https://wa.me/${whatsappNumber}`;
   const phoneNumber = "+9647881457896";
   const phoneLink = `tel:${phoneNumber}`;
@@ -836,108 +816,13 @@ const saveSettings = (newSettings: any) => {
                   }}
                 />
               </div>
-{/* Modal للتكبير */}
-{selectedImage && (
-  <div 
-    className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4"
-    onClick={closeModal}
-  >
-    <button
-      onClick={closeModal}
-      className="absolute top-4 right-4 z-50 bg-[#d4af37] hover:bg-[#c9a02e] text-black p-3 rounded-full"
-    >
-      ✕
-    </button>
-
-    <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
-      <div className="text-center">
-        <div
-          className="relative max-w-4xl mx-auto touch-none"
-          onClick={(e) => e.stopPropagation()}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-          onWheel={handleWheel}
-        >
-          <img
-            src={selectedImage}
-            alt="عمل مميز"
-            className="max-w-full max-h-[80vh] object-contain mx-auto rounded-lg transition-transform duration-200"
-            style={{
-              transform: `scale(${scale}) translate(${position.x}px, ${position.y}px)`,
-              cursor: scale > 1 ? "move" : "zoom-in"
-            }}
-          />
+              <p className="text-gray-400 mt-4 text-sm">
+                استخدم أصابعك للتكبير والتصغير • اسحب للتحريك
+              </p>
+            </div>
+          </div>
         </div>
-
-        <p className="text-gray-400 mt-4 text-sm">
-          استخدم أصابعك للتكبير والتصغير • اسحب للتحريك
-        </p>
-      </div>
+      )}
     </div>
-  </div>
-)}
-
-{/* زر الإعدادات */}
-<button
-  onClick={() => setShowPanel(true)}
-  className="fixed top-6 left-6 z-50 bg-[#d4af37] text-black p-3 rounded-full shadow-xl"
->
-  ⚙️
-</button>
-
-{/* لوحة التحكم */}
-{showPanel && (
-  <div className="fixed inset-0 bg-black/90 z-[200] flex items-center justify-center p-4">
-    <div className="bg-[#0a0a0a] p-6 rounded-xl w-full max-w-md space-y-4">
-
-      <h2 className="text-xl font-bold text-[#d4af37]">
-        لوحة التحكم
-      </h2>
-
-      <input
-        className="w-full p-3 bg-[#1a1a1a] text-white rounded"
-        placeholder="العنوان"
-        value={settings.title}
-        onChange={(e) =>
-          saveSettings({
-            ...settings,
-            title: e.target.value,
-          })
-        }
-      />
-
-      <input
-        className="w-full p-3 bg-[#1a1a1a] text-white rounded"
-        placeholder="الوصف"
-        value={settings.subtitle}
-        onChange={(e) =>
-          saveSettings({
-            ...settings,
-            subtitle: e.target.value,
-          })
-        }
-      />
-
-      <input
-        className="w-full p-3 bg-[#1a1a1a] text-white rounded"
-        placeholder="نص الزر"
-        value={settings.button}
-        onChange={(e) =>
-          saveSettings({
-            ...settings,
-            button: e.target.value,
-          })
-        }
-      />
-
-      <button
-        onClick={() => setShowPanel(false)}
-        className="w-full bg-[#d4af37] text-black py-3 rounded font-bold"
-      >
-        إغلاق
-      </button>
-
-    </div>
-  </div>
-)}
+  );
+          }

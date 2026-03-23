@@ -70,7 +70,9 @@ const [settings, setSettings] = useState({
   const [showTestimonialForm, setShowTestimonialForm] = useState(false);
   const [newTestimonial, setNewTestimonial] = useState({ rating: 5, comment: "", image: "" });
   const [isLoading, setIsLoading] = useState(false);
-
+useEffect(() => {
+  localStorage.setItem("settings", JSON.stringify(settings));
+}, [settings]);
   // Load images from localStorage on mount
   useEffect(() => {
     const savedImages = localStorage.getItem('homeGalleryImages');
@@ -89,7 +91,12 @@ const [settings, setSettings] = useState({
     setGalleryImages(newImages);
     localStorage.setItem('homeGalleryImages', JSON.stringify(newImages));
   };
-
+useEffect(() => {
+  const savedSettings = localStorage.getItem("settings");
+  if (savedSettings) {
+    setSettings(JSON.parse(savedSettings));
+  }
+}, []);
   // Save testimonials to localStorage
   const saveTestimonials = (newTestimonials: Testimonial[]) => {
     setTestimonials(newTestimonials);
@@ -212,7 +219,7 @@ const [settings, setSettings] = useState({
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1687180498602-5a1046defaa4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBpbnRlcmlvciUyMGRlc2lnbiUyMHNvZmF8ZW58MXx8fHwxNzc0MTYzNDgwfDA&ixlib=rb-4.1.0&q=80&w=1080"
-            alt="Luxury Sofa"
+            alt="Luxury {settings.title}"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/90"></div>
@@ -225,15 +232,11 @@ const [settings, setSettings] = useState({
             transition={{ duration: 0.8 }}
           >
             <div className="mb-6">
-              <span className="text-[#d4af37] text-xl md:text-2xl font-semibold tracking-wide">قنفات ودواوين الأسدي الفاخرة ✨</span>
+              <span className="text-[#d4af37] text-xl md:text-2xl font-semibold tracking-wide"> {settings.subtitle}  </span>
             </div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-              قنفات ودواوين فخمة بتصميم<br />
-              <span className="text-[#d4af37]">يناسب ذوقك</span>
-            </h1>
-            <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
-              تفصيل وبيع قنفات ودواوين بأعلى جودة ولمسة فاخرة تضيف جمال لأي مكان
-            </p>
+<h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+  {settings.title}
+</h1>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
                 href={whatsappLink}
@@ -242,8 +245,7 @@ const [settings, setSettings] = useState({
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="bg-[#d4af37] hover:bg-[#c9a02e] text-black px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 shadow-xl"
-              >
-                اطلب الآن عبر واتساب
+              >{settings.subtitle}
               </motion.a>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link
@@ -272,8 +274,8 @@ const [settings, setSettings] = useState({
               <div className="bg-[#d4af37]/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-[#d4af37]/20 transition-all duration-300">
                 <Award className="w-10 h-10 text-[#d4af37]" />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-[#d4af37]">جودة عالية</h3>
-              <p className="text-gray-300 leading-relaxed">نستخدم أفضل الخامات والأقمشة الفاخرة لضمان جودة استثنائية</p>
+              <h3 className="text-2xl font-bold mb-4 text-[#d4af37]"> {settings.subtitle}</h3>
+              <p className="text-gray-300 leading-relaxed">{settings.subtitle}</p>
             </motion.div>
 
             <motion.div
@@ -284,8 +286,8 @@ const [settings, setSettings] = useState({
               <div className="bg-[#d4af37]/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-[#d4af37]/20 transition-all duration-300">
                 <Settings className="w-10 h-10 text-[#d4af37]" />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-[#d4af37]">تفصيل حسب الطلب</h3>
-              <p className="text-gray-300 leading-relaxed">تصميم مخصص يناسب ذوقك الخاص ومساحتك المتاحة</p>
+              <h3 className="text-2xl font-bold mb-4 text-[#d4af37]"> {settings.subtitle}</h3>
+              <p className="text-gray-300 leading-relaxed">{settings.subtitle}</p>
             </motion.div>
 
             <motion.div
@@ -296,8 +298,8 @@ const [settings, setSettings] = useState({
               <div className="bg-[#d4af37]/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-[#d4af37]/20 transition-all duration-300">
                 <Truck className="w-10 h-10 text-[#d4af37]" />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-[#d4af37]">توصيل سريع</h3>
-              <p className="text-gray-300 leading-relaxed">خدمة توصيل سريعة وآمنة لجميع المحافظات</p>
+              <h3 className="text-2xl font-bold mb-4 text-[#d4af37]">{settings.subtitle}</h3>
+              <p className="text-gray-300 leading-relaxed">{settings.subtitle}</p>
             </motion.div>
           </div>
         </div>
@@ -429,8 +431,8 @@ const [settings, setSettings] = useState({
               <div className="bg-[#d4af37]/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-[#d4af37] transition-all duration-300">
                 <Sofa className="w-8 h-8 text-[#d4af37] group-hover:text-black transition-all duration-300" />
               </div>
-              <h3 className="text-xl font-bold mb-3 text-[#d4af37]">تفصيل قنفات ودواوين</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">تصميم وتفصيل قنفات ودواوين حسب المقاسات والألوان المطلوبة</p>
+              <h3 className="text-xl font-bold mb-3 text-[#d4af37]">  {settings.subtitle}</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">  {settings.subtitle}</p>
             </motion.div>
 
             <motion.div
@@ -441,8 +443,8 @@ const [settings, setSettings] = useState({
               <div className="bg-[#d4af37]/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-[#d4af37] transition-all duration-300">
                 <Award className="w-8 h-8 text-[#d4af37] group-hover:text-black transition-all duration-300" />
               </div>
-              <h3 className="text-xl font-bold mb-3 text-[#d4af37]">بيع قنفات ودواوين جاهزة</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">مجموعة واسعة من القنفات والدواوين الجاهزة بتصاميم عصرية</p>
+              <h3 className="text-xl font-bold mb-3 text-[#d4af37]">{settings.subtitle}   </h3>
+              <p className="text-gray-400 text-sm leading-relaxed"> {settings.subtitle}</p>
             </motion.div>
 
             <motion.div
@@ -453,8 +455,8 @@ const [settings, setSettings] = useState({
               <div className="bg-[#d4af37]/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-[#d4af37] transition-all duration-300">
                 <Wrench className="w-8 h-8 text-[#d4af37] group-hover:text-black transition-all duration-300" />
               </div>
-              <h3 className="text-xl font-bold mb-3 text-[#d4af37]">صيانة وتصليح</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">خدمات صيانة وتصليح احترافية لجميع أنواع القنفات والدواوين</p>
+              <h3 className="text-xl font-bold mb-3 text-[#d4af37]"> </h3>
+              <p className="text-gray-400 text-sm leading-relaxed">  {settings.subtitle} </p>
             </motion.div>
 
             <motion.div
@@ -465,8 +467,8 @@ const [settings, setSettings] = useState({
               <div className="bg-[#d4af37]/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-[#d4af37] transition-all duration-300">
                 <Palette className="w-8 h-8 text-[#d4af37] group-hover:text-black transition-all duration-300" />
               </div>
-              <h3 className="text-xl font-bold mb-3 text-[#d4af37]">تغيير قماش وتجديد</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">تجديد قنفاتك ودواوينك القديمة بأقمشة فاخرة وعصرية</p>
+              <h3 className="text-xl font-bold mb-3 text-[#d4af37]"> {settings.subtitle} </h3>
+              <p className="text-gray-400 text-sm leading-relaxed">   {settings.subtitle}</p>
             </motion.div>
           </div>
         </div>
@@ -743,8 +745,8 @@ const [settings, setSettings] = useState({
       <footer className="bg-[#1a1a1a] border-t border-[#d4af37]/20 py-12 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
-            <h3 className="text-3xl font-bold text-[#d4af37] mb-4">قنفات ودواوين الأسدي الفاخرة ✨</h3>
-            <p className="text-gray-400 mb-8">جودة عالية، تصميم فريد، خدمة متميزة</p>
+            <h3 className="text-3xl font-bold text-[#d4af37] mb-4">  {settings.subtitle}</h3>
+            <p className="text-gray-400 mb-8">{settings.subtitle} </p>
             
             {/* Social Media Links */}
             <div className="flex justify-center gap-4 mb-8">
@@ -789,7 +791,7 @@ const [settings, setSettings] = useState({
             
             <div className="border-t border-[#d4af37]/20 pt-6">
               <p className="text-gray-500">
-                © 2026 قنفات ودواوين الأسدي الفاخرة - كل الحقوق محفوظة
+                {settings.subtitle}
               </p>
             </div>
           </div>

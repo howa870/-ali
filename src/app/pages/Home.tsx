@@ -70,6 +70,23 @@ const [settings, setSettings] = useState({
   const [showTestimonialForm, setShowTestimonialForm] = useState(false);
   const [newTestimonial, setNewTestimonial] = useState({ rating: 5, comment: "", image: "" });
   const [isLoading, setIsLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
+const [saved, setSaved] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const handleSave = () => {
+  setSaving(true);
+
+  setTimeout(() => {
+    localStorage.setItem("settings", JSON.stringify(settings));
+    setSaving(false);
+    setSaved(true);
+    setShowToast(true); // 👈 ضيف هذا
+
+    setTimeout(() => setSaved(false), 2500);
+    setTimeout(() => setShowToast(false), 3000); // 👈 وضيف هذا
+
+  }, 900);
+};
 useEffect(() => {
   localStorage.setItem("settings", JSON.stringify(settings));
 }, [settings]);
@@ -190,14 +207,23 @@ useEffect(() => {
     transition: { duration: 0.6 }
   };
 
-  return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white" style={{ fontFamily: "'Cairo', sans-serif" }} dir="rtl">
-      <button
-  onClick={() => setShowPanel(true)}
-  className="fixed top-6 left-6 z-50 bg-[#d4af37] text-black p-3 rounded-full shadow-xl"
->
-  ⚙️
-</button>
+ return (
+     <>
+       {showToast && (
+  <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
+    <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 animate-bounce">
+      تم الحفظ ✅
+    </div>
+  </div>
+)}
+       <div className="min-h-screen bg-[#0a0a0a] text-white">
+
+  <button
+    onClick={() => setShowPanel(true)}
+    className="fixed top-6 left-6 z-50 bg-[#d4af37] text-black p-3 rounded-full shadow-xl"
+  >
+    ⚙️
+  </button>
       {/* Loading Spinner */}
       {isLoading && <LoadingSpinner />}
 
@@ -867,12 +893,26 @@ useEffect(() => {
   }
   className="w-full p-2 bg-black text-white mb-4 rounded"
 />
-    <button
-      onClick={() => setShowPanel(false)}
-      className="bg-red-500 px-4 py-2 rounded"
-    >
-      اغلاق
-    </button>
+<button
+  onClick={handleSave}
+  disabled={saving}
+  className={`w-full py-3 rounded-xl font-semibold mt-3 shadow-lg transition
+  ${saving 
+    ? "bg-gray-500 text-white" 
+    : saved 
+    ? "bg-green-500 text-white" 
+    : "bg-gradient-to-r from-[#d4af37] to-[#c9a227] text-black hover:scale-105"
+  }`}
+  {saving ? "⏳ جاري الحفظ..." : saved ? "✅ تم الحفظ" : "💾 حفظ التغييرات"}
+</button>
+
+{/* زر الاغلاق */}
+<button
+  onClick={() => setShowPanel(false)}
+  className="w-full bg-red-500 px-4 py-2 rounded mt-2"
+>
+  اغلاق
+</button>
   </div>
 )}
     </div>

@@ -881,8 +881,9 @@ useEffect(() => {
   value={settings.subtitle}
   onChange={(e) =>
     setSettings({ ...settings, subtitle: e.target.value })
-  }
-  className="w-full p-2 bg-black text-white mb-4 rounded" />
+  }className="w-full p-2 bg-black text-white mb-4 rounded"
+/>
+<button
 
 <label className="block mb-2">نص الزر:</label>
 <input

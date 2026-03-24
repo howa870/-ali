@@ -882,8 +882,7 @@ useEffect(() => {
   onChange={(e) =>
     setSettings({ ...settings, subtitle: e.target.value })
   }
-  className="w-full p-2 bg-black text-white mb-4 rounded"
-/>
+  className="w-full p-2 bg-black text-white mb-4 rounded" />
 
 <label className="block mb-2">نص الزر:</label>
 <input
@@ -892,20 +891,25 @@ useEffect(() => {
     setSettings({ ...settings, button: e.target.value })
   }
   className="w-full p-2 bg-black text-white mb-4 rounded"
-/>
+  />
+  
 <button
   onClick={handleSave}
   disabled={saving}
-  className={`w-full py-3 rounded-xl font-semibold mt-3 shadow-lg transition
-  ${saving 
-    ? "bg-gray-500 text-white" 
-    : saved 
-    ? "bg-green-500 text-white" 
-    : "bg-gradient-to-r from-[#d4af37] to-[#c9a227] text-black hover:scale-105"
+  className={`w-full py-3 rounded-xl font-semibold mt-3 shadow-lg transition-all duration-300 ${
+    saving
+      ? "bg-gray-500 text-white"
+      : saved
+      ? "bg-green-500 text-white"
+      : "bg-gradient-to-r from-[#d4af37] to-[#c9a227] text-black"
   }`}
-  {saving ? "⏳ جاري الحفظ..." : saved ? "✅ تم الحفظ" : "💾 حفظ التغييرات"}
+>
+  {saving
+    ? "⏳ جاري الحفظ..."
+    : saved
+    ? "✅ تم حفظ التغييرات"
+    : "💾 حفظ التغييرات"}
 </button>
-
 {/* زر الاغلاق */}
 <button
   onClick={() => setShowPanel(false)}
